@@ -1,0 +1,72 @@
+
+<div class="container">
+    <h1 id="h1">Registration Form</h1>
+    <form #userForm="ngForm" (ngSubmit)="onFormSubmit()">
+    
+
+        <div class="form-group">
+            <label for="" id="lbl">Firstname</label>
+            <input type="text" #firstName="ngModel" [(ngModel)]="user.firstName" name="firstName"
+                class="form-control" placeholder="Enter the firstname"
+                [class.is-invalid]="firstName.invalid && firstName.touched" required />
+            <small class="text-danger" [class.d-none]="firstName.untouched ||firstName.valid">This is require
+                field</small>
+        </div>
+
+        <div class="form-group">
+            <label for="" id="lbl">Lastname</label>
+            <input type="text" #lastName="ngModel" [(ngModel)]="user.lastName" name="lastName" class="form-control"
+                placeholder="Enter the lastname" [class.is-invalid]="lastName.invalid && lastName.touched" required />
+            <small class="text-danger" [class.d-none]="lastName.untouched ||lastName.valid">This is require
+                field</small>
+        </div>
+        <div class="form-group">
+            <label for="" id="lbl">DateOfJoining</label><br>
+            <div>
+                <input [matDatepicker]="basicDatepicker" placeholder="Enter the Date" #Doj="ngModel"
+                    [(ngModel)]="user.Doj" name="Doj"
+                    [class.is-invalid]="Doj.invalid && Doj.touched" required>
+                <small class="text-danger" [class.d-none]="Doj.untouched || Doj.valid">This is
+                    require
+                    field</small>
+                <mat-datepicker-toggle [for]="basicDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #basicDatepicker></mat-datepicker>
+                </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="age" id="lbl">Age</label>
+            <input type="number" [(ngModel)]="user.Age" name="Age" #Age="ngModel" class="form-control"
+                placeholder="Enter the Age"  min="20" max="60" [class.is-invalid]="Age.invalid && Age.touched" required />
+             <div *ngIf="Age.errors && (Age.touched || Age.invalid)"> 
+                <small class="text-danger" [class.d-none]="Age.untouched ||Age.valid">This is
+                    require
+                    field</small>
+                <small class="text-danger" *ngIf="Age.errors.invalid">plz enter the age correctly</small> 
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" id="lbl">Departments</label>
+            <select class="form-control" name="Departments" #Department="ngModel" [(ngModel)]="user.departmentsid" (change)='getDesignations(Department.value)'>
+                     <option value="" disabled selected>Select Department...</option>
+                        <option *ngFor="let dept of departments" [value]="dept.id">
+                            {{dept.deptName}}
+                        </option> 
+             </select> 
+        </div>
+        <div class="form-group"> 
+            <label for="" id="lbl">Designation</label>
+            <select class="form-control" name="Designation" #Designation="ngModel" [(ngModel)]="user.designationdesId">
+                <option value="" disabled selected>Select something...</option>
+                    <option *ngFor="let de of design" [value]="de.desId">
+                        {{ de.name }}
+                    </option>
+                
+            </select>
+        </div> 
+
+        <input type="submit" value="Submit" class="btn btn-primary" style="background-color: #610a4c" />
+    </form>
+</div>
